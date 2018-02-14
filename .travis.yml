@@ -5,5 +5,6 @@ install: "pip install -r requirements.txt"
 env:
   - HOST=localhost
 before_script:
+  - (gunicorn project:app &)
   - cd tests
 script: behave
