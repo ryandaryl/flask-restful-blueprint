@@ -1,8 +1,9 @@
+import os
 from yaml import load
 
 def before_all(context):
     context.settings = load(open('features/conf.yaml').read())
-    context.base_url = context.settings['base_url']
-    context.staging_url = context.settings['staging_base_url']
+    context.port = os.environ.get('PORT', 5000)
+    context.base_url = ':'.join([context.settings['base_url'], context.port])
     context.headers = {}
     context.verify_ssl = True

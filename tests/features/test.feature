@@ -1,7 +1,7 @@
 Feature: Test feature
 
   Background: Set base url and headers
-    Given I set base URL to "context.staging_url"
+    Given I set base URL to "context.base_url"
     And I set "Accept" header to "application/json"
 
   @test
