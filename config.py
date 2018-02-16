@@ -17,7 +17,7 @@ class Public(Config):
 
 # Environments
 
-class Develoment(Local):
+class Development(Local):
     DEBUG = True
 
 class Testing(Config):
