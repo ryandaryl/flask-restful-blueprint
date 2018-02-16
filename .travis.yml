@@ -3,8 +3,8 @@ python:
   - "3.6"
 install: "pip install -r requirements.txt"
 env:
-  - FLASK_ENV = 'Local,Travis'
+  - FLASK_ENV = 'Local,Testing,Gunicorn'
 before_script:
   - (gunicorn project:app &)
-  - cd tests
+  - cd tests/platform
 script: behave

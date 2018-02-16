@@ -27,9 +27,9 @@ class Production(Config):
     pass
 
 
-# Vendors
+# Compatibility
 
-class Travis(Testing):
+class Gunicorn(Config):
     PORT = 8000
 
 class Heroku(Config):
