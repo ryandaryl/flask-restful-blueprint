@@ -1,1 +1,2 @@
-base_url: 'http://localhost'
+host: 'http://localhost'
+port: 8000
