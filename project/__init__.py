@@ -6,8 +6,7 @@ app = Flask(__name__)
 
 app.config.from_object('config.Config')
 environment = os.environ.get('FLASK_ENV', app.config.get('DEFAULT_ENVIRONMENT'))
-for e in environment.split(','):
-    app.config.from_object('.'.join(['config', e.title()]))
+app.config.from_object('config.' + environment)
 
 blueprint = Blueprint('my_blueprint', __name__)
 
@@ -19,9 +18,3 @@ api = flask_restful.Api(blueprint, prefix="/blueprint")
 api.add_resource(HelloWorld, "/helloworld")
 
 app.register_blueprint(blueprint)
-
-if __name__ == "__main__":
-    app.run(
-      host=app.config.get('HOST'),
-      port=int(app.config.get('PORT'))
-    )

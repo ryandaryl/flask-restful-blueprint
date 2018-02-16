@@ -1,23 +1,12 @@
 import os
 
 class Config(object):
-    DEFAULT_ENVIRONMENT = 'Production,Public'
-
-
-# Environment attributes
-
-class Local(Config):
-    HOST = 'localhost'
-    PORT = 80
-
-class Public(Config):
-    HOST = '0.0.0.0'
-    PORT = os.environ.get('PORT') or 5000
+    DEFAULT_ENVIRONMENT = 'Production'
 
 
 # Environments
 
-class Development(Local):
+class Development(Config):
     DEBUG = True
 
 class Testing(Config):
@@ -25,12 +14,3 @@ class Testing(Config):
 
 class Production(Config):
     pass
-
-
-# Compatibility
-
-class Gunicorn(Config):
-    PORT = 8000
-
-class Heroku(Config):
-    PORT = Public.PORT
