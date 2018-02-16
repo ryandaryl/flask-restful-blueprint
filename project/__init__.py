@@ -1,20 +1,27 @@
 import os
 from flask import Flask, Blueprint
-from flask.ext import restful
+import flask_restful
 
-class HelloWorld(restful.Resource):
-    def get(self):
-        return {'hello': 'world'}
+app = Flask(__name__)
+
+app.config.from_object('config.Config')
+environment = os.environ.get('FLASK_ENV', app.config.get('DEFAULT_ENVIRONMENT'))
+for e in environment.split(','):
+    app.config.from_object('.'.join(['config', e.title()]))
 
 blueprint = Blueprint('my_blueprint', __name__)
 
-api = restful.Api(blueprint, prefix="/blueprint")
+class HelloWorld(flask_restful.Resource):
+    def get(self):
+        return {'hello': 'world'}
+
+api = flask_restful.Api(blueprint, prefix="/blueprint")
 api.add_resource(HelloWorld, "/helloworld")
 
-app = Flask(__name__)
 app.register_blueprint(blueprint)
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 8000))
-    host = os.environ.get('HOST', '0.0.0.0')
-    app.run(host=host, port=port)
+    app.run(
+      host=app.config.get('HOST'),
+      port=int(app.config.get('PORT'))
+    )
