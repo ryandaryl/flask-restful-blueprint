@@ -6,4 +6,4 @@ api = flask_restful.Api(blueprints[__name__], prefix="/blueprint")
 @api.route('/helloworld')
 class HelloWorld(flask_restful.Resource):
     def get(self):
-        return {'hello': 'destruction'}
+        return {'hello': 'world'}
