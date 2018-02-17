@@ -1,20 +1,20 @@
 import os
 from flask import Flask, Blueprint
 import flask_restful
+from setuptools import find_packages
 
 app = Flask(__name__)
 
-app.config.from_object('config.Config')
-environment = os.environ.get('FLASK_ENV', app.config.get('DEFAULT_ENVIRONMENT'))
-app.config.from_object('config.' + environment)
+def get_config():
+    app.config.from_object('config.Config')
+    environment = os.environ.get('FLASK_ENV', app.config.get('DEFAULT_ENVIRONMENT'))
+    app.config.from_object('config.' + environment)
 
-blueprint = Blueprint('my_blueprint', __name__)
+def get_blueprints(filter_path=''):
+    for path in find_packages():
+        if filter_path in path:
+            blueprint = path.replace(filter_path, '') + '_blueprint'
+            app.register_blueprint(getattr(__import__(path, fromlist=['']), blueprint))
 
-class HelloWorld(flask_restful.Resource):
-    def get(self):
-        return {'hello': 'world'}
-
-api = flask_restful.Api(blueprint, prefix="/blueprint")
-api.add_resource(HelloWorld, "/helloworld")
-
-app.register_blueprint(blueprint)
+get_config()
+get_blueprints('project.platform.')
