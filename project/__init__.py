@@ -5,6 +5,7 @@ from setuptools import find_packages
 import project.platform.route_decorator
 
 app = Flask(__name__)
+blueprints = {}
 
 def get_config():
     app.config.from_object('config.Config')
@@ -14,8 +15,9 @@ def get_config():
 def get_blueprints(filter_path=''):
     for path in find_packages():
         if filter_path in path:
-            blueprint = path.replace(filter_path, '') + '_blueprint'
-            app.register_blueprint(getattr(__import__(path, fromlist=['']), blueprint))
+            blueprints[path] = Blueprint(path, path)
+            __import__(path)
+            app.register_blueprint(blueprints[path])
 
 get_config()
 get_blueprints('project.platform.')

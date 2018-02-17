@@ -1,8 +1,7 @@
-from flask import Blueprint
 import flask_restful
+from project import blueprints
 
-section_a_blueprint = Blueprint('section_a', __name__)
-api = flask_restful.Api(section_a_blueprint, prefix="/blueprint")
+api = flask_restful.Api(blueprints[__name__], prefix="/blueprint")
 
 @api.route('/helloworld')
 class HelloWorld(flask_restful.Resource):
