@@ -2,6 +2,7 @@ import os
 from flask import Flask, Blueprint
 import flask_restful
 from setuptools import find_packages
+import project.platform.route_decorator
 
 app = Flask(__name__)
 
