@@ -1,10 +1,15 @@
 import os
 from flask import Flask, Blueprint
+from whitenoise import WhiteNoise
 import flask_restful
 from setuptools import find_packages
 import project.platform.route_decorator
 
 app = Flask(__name__)
+
+# Use this app to serve static files.
+wnapp = WhiteNoise(app, root='./project/ui/')
+
 blueprints = {}
 
 def get_config():
