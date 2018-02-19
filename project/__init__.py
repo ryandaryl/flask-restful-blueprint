@@ -3,9 +3,7 @@ from flask import Flask, Blueprint
 from whitenoise import WhiteNoise
 import flask_restful
 from setuptools import find_packages
-import project.platform.route_decorator
-import coverage
-coverage.process_startup()
+import project.restfulapi.route_decorator
 
 app = Flask(__name__)
 
@@ -27,4 +25,4 @@ def get_blueprints(filter_path=''):
             app.register_blueprint(blueprints[path])
 
 get_config()
-get_blueprints('project.platform.')
+get_blueprints('project.restfulapi.')

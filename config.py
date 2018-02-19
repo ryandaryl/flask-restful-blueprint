@@ -1,20 +1,6 @@
-import os
-
-# Project sections
-
-class Platform(object):
-    pass
-
-class Plugins(object):
-    pass
-
-class UI(object):
-    pass
-
-
 # General
 
-class Config(Platform, Plugins, UI):
+class Config(object):
     DEFAULT_ENVIRONMENT = 'Production'
 
 
@@ -24,6 +10,9 @@ class Development(Config):
     DEBUG = True
 
 class Testing(Config):
+    pass
+
+class Staging(Config):
     pass
 
 class Production(Config):
