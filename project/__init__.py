@@ -4,6 +4,8 @@ from whitenoise import WhiteNoise
 import flask_restful
 from setuptools import find_packages
 import project.platform.route_decorator
+import coverage
+coverage.process_startup()
 
 app = Flask(__name__)
 

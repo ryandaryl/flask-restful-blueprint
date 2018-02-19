@@ -11,3 +11,11 @@ Feature: Test feature
     And the response status message should equal "OK"
     And the response header "Content-Type" should equal "application/json"
     And the response parameter "hello" should equal "world"
+
+  @test
+  Scenario: Test scenario to get hello2 world2
+    When I make a GET request to "blueprint2/helloworld"
+    Then the response status code should equal 200
+    And the response status message should equal "OK"
+    And the response header "Content-Type" should equal "application/json"
+    And the response parameter "hello2" should equal "world2"

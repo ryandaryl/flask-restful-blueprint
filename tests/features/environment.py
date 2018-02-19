@@ -1,4 +1,5 @@
 import os
+import coveralls
 from yaml import load
 
 def before_all(context):

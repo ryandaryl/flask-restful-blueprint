@@ -1,10 +1,10 @@
 language: python
 python:
   - "3.6"
-install: "pip install -r requirements.txt"
-env:
-  - FLASK_ENV = 'Testing'
-before_script:
-  - (gunicorn project:app &)
-  - cd tests
-script: behave
+install: "pip install -r requirements.txt coverage coveralls"
+script:
+  - mv tests/run_server.py .
+  - (sleep 5 && cd tests && behave &) && timeout 30 coverage run --rcfile=tests/.coveragerc run_server.py || true
+after_success:
+  - coverage combine
+  - coveralls
