@@ -1,6 +1,6 @@
-import os
+import os, sys
 from gunicorn.app.base import BaseApplication
-from project import app
+from importlib import import_module
 
 #https://programtalk.com/python-examples/gunicorn.app.base.BaseApplication/
 def run_server(app, host, port):
@@ -22,4 +22,19 @@ def run_server(app, host, port):
     FlaskGUnicornApp().run()
 
 if __name__ == '__main__':
-    run_server(app, '0.0.0.0', int(os.environ.get('PORT', 8000)))
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--host', default='0.0.0.0',
+                    help='Run the server on this host address.')
+    parser.add_argument('--port', default=8000,
+                    help='Run the server on this port.', type=int)
+    parser.add_argument('--package',
+                    help='A path to a Python package or module (myproject.mypackage).')
+    parser.add_argument('--app', default='app',
+                    help='A WSGI callable defined in the module (such as app = Flask(__name__)).')
+    args = parser.parse_args()
+    print('args.app is list:', list(args.app) == args.app)
+    app = getattr(
+        import_module(args.package),
+        args.app)
+    run_server(app, args.host, args.port)

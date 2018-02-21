@@ -1,10 +1,12 @@
 language: python
 python:
   - "3.6"
+before_install:
+  - chmod +x tests/behave.sh
 install: "pip install -r requirements.txt coverage coveralls"
 script:
   - mv tests/run_server.py .
-  - (sleep 5 && cd tests && behave &) && timeout 30 coverage run --rcfile=tests/.coveragerc run_server.py || true
+  - tests/behave.sh
 after_success:
   - coverage combine
   - coveralls
