@@ -33,7 +33,6 @@ if __name__ == '__main__':
     parser.add_argument('--app', default='app',
                     help='A WSGI callable defined in the module (such as app = Flask(__name__)).')
     args = parser.parse_args()
-    print('args.app is list:', list(args.app) == args.app)
     app = getattr(
         import_module(args.package),
         args.app)
