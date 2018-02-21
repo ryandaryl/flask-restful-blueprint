@@ -4,3 +4,4 @@ gunicorn
 behave_rest
 pyyaml
 whitenoise
+requests

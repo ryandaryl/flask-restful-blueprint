@@ -2,11 +2,13 @@ language: python
 python:
   - "3.6"
 before_install:
-  - chmod +x tests/behave.sh
+  - chmod +x tests/tests.sh
 install: "pip install -r requirements.txt coverage coveralls"
+env:
+  - FLASK_ENV=Testing
 script:
   - mv tests/run_server.py .
-  - tests/behave.sh
+  - tests/tests.sh
 after_success:
   - coverage combine
   - coveralls
